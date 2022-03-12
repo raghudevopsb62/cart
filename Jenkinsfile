@@ -1,3 +1,5 @@
+def skipRemainingStages = false
+
 pipeline {
 
   agent {
@@ -24,8 +26,6 @@ pipeline {
           if (statusCode == 0) {
             println "VERSION mentioned in main branch has already been tagged"
             skipRemainingStages = true
-          } else {
-            skipRemainingStages = false
           }
         }
       }
@@ -46,10 +46,11 @@ pipeline {
 
     stage('Create Release') {
       when {
-        expression {
-          GIT_BRANCH == "main"
-          !skipRemainingStages
+        allOf {
+          expression { GIT_BRANCH == "main" }
+          expression { !skipRemainingStages }
         }
+
       }
       steps {
         script {
@@ -73,6 +74,12 @@ pipeline {
 
   }
 
+  post {
+    always {
+      cleanWs()
+    }
+  }
+
 }
-//
+
 //
