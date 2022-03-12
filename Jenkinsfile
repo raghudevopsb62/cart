@@ -31,19 +31,6 @@ pipeline {
       }
     }
 
-    stage('Download Dependencies') {
-      when {
-        expression {
-          !skipRemainingStages
-        }
-      }
-      steps {
-        sh '''
-          npm install
-        '''
-      }
-    }
-
     stage('Create Release') {
       when {
         allOf {
@@ -71,6 +58,51 @@ pipeline {
         }
       }
     }
+
+
+    stage('Download Dependencies') {
+      when {
+        expression {
+          !skipRemainingStages
+        }
+      }
+      steps {
+        sh '''
+          npm install
+        '''
+      }
+    }
+
+
+    stage('Make Artifacts') {
+      when {
+        expression {
+          !skipRemainingStages
+        }
+      }
+      steps {
+        sh '''
+          TAG=$(cat VERSION | grep "^#[0-9].[0-9].[0-9]" | head -1|sed -e "s|#|v|")
+          echo $TAG >version
+          zip -r cart-${TAG}.zip node_modules server.js version
+        '''
+      }
+    }
+
+    stage('Publish Artifacts to Nexus') {
+      when {
+        expression {
+          !skipRemainingStages
+        }
+      }
+      steps {
+        sh '''
+          TAG=$(cat VERSION | grep "^#[0-9].[0-9].[0-9]" | head -1|sed -e "s|#|v|")
+          curl -v -u admin:admin123 --upload-file cart-${TAG}.zip http://172.31.9.227:8081/repository/cart/cart-${TAG}.zip
+        '''
+      }
+    }
+
 
   }
 
