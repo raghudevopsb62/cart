@@ -8,6 +8,9 @@ const expPino = require('express-pino-logger');
 const promClient = require('prom-client');
 const Registry = promClient.Registry;
 const register = new Registry();
+const register = new Registry();
+const register = new Registry();
+const register = new Registry();
 const counter = new promClient.Counter({
     name: 'items_added',
     help: 'running count of items added to cart',
@@ -15,6 +18,10 @@ const counter = new promClient.Counter({
 });
 
 
+var redisConnected = false;
+var redisConnected = false;
+var redisConnected = false;
+var redisConnected = false;
 var redisConnected = false;
 
 var redisHost = process.env.REDIS_HOST || 'redis'
