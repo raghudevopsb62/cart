@@ -17,8 +17,8 @@ pipeline {
       stage('Terraform Init') {
         steps {
           sh '''
-            cd mutable/env-${APPLY_ENV}
-            terraform init
+            cd mutable
+            terraform init -backend-config=env-${APPLY_ENV}/backend.tfvars
           '''
         }
       }
@@ -26,8 +26,8 @@ pipeline {
       stage('Terraform Plan') {
         steps {
           sh '''
-            cd mutable/env-${APPLY_ENV}
-            terraform plan
+            cd mutable
+            terraform plan -var-file=env-${APPLY_ENV}/main.tfvars
           '''
         }
       }
@@ -35,8 +35,8 @@ pipeline {
       stage('Terraform Apply') {
         steps {
           sh '''
-            cd mutable/env-${APPLY_ENV}
-            terraform apply -auto-approve
+            cd mutable
+            terraform apply -auto-approve -var-file=env-${APPLY_ENV}/main.tfvars
           '''
         }
       }
