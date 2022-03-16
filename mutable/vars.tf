@@ -8,3 +8,4 @@ variable "PORT" {}
 variable "TRIGGER" {
   default = "no"
 }
+variable "EC2_MODULE_VERSION" {}
