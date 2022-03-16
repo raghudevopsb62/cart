@@ -16,20 +16,20 @@ pipeline {
 
       stage('Terraform Init') {
         steps {
-          sh 'terraform init -backend-config=env-${APPLY_ENV}/backend.tfvars'
+          sh 'cd mutable; terraform init -backend-config=env-${APPLY_ENV}/backend.tfvars'
         }
       }
 
       stage('Terraform Plan') {
         steps {
-          sh 'terraform plan -var-file=env-${APPLY_ENV}/main.tfvars'
+          sh 'cd mutable; terraform plan -var-file=env-${APPLY_ENV}/main.tfvars'
           sh 'env'
         }
       }
 
       stage('Terraform Apply') {
         steps {
-          sh 'terraform apply -auto-approve -var-file=env-${APPLY_ENV}/main.tfvars'
+          sh 'cd mutable ; terraform apply -auto-approve -var-file=env-${APPLY_ENV}/main.tfvars'
         }
       }
 
