@@ -9,6 +9,7 @@ module "ec2" {
   ALB_ATTACH_TO       = "backend"
   PORT                = var.PORT
   TRIGGER             = var.TRIGGER
+  APP_VERSION         = var.APP_VERSION
 }
 
 module "tags" {
