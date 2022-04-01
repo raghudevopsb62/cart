@@ -20,6 +20,11 @@ spec:
       containers:
       - name: cart
         image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/cart:TAG
+        env:
+          - name: REDIS_HOST
+            value: redis-master
+          - name: CATALOGUE_HOST
+            value: catalogue 
         ports:
         - containerPort: 8080
 ---
