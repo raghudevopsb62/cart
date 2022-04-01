@@ -1,5 +1,6 @@
 FROM          node
-RUN           mkdir /app
+RUN           adduser --disabled-password  --home /app --gecos "" roboshop
+USER          roboshop
 WORKDIR       /app
 COPY          package.json /app/.
 COPY          server.js /app/.
