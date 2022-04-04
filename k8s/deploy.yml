@@ -26,7 +26,7 @@ spec:
           - name: CATALOGUE_HOST
             value: catalogue
           - name: CATALOGUE_PORT
-            value: 80
+            value: "80"
         ports:
         - containerPort: 8080
 ---
