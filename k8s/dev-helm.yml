@@ -7,6 +7,6 @@ health:
 configMap:
   enabled: true
   data:
-    CATALOGUE_PORT: 80
+    CATALOGUE_PORT: "80"
     CATALOGUE_HOST: catalogue
     REDIS_HOST: redis-master
