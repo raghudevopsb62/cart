@@ -3,5 +3,5 @@ image:
   component: cart
 health:
   path: /health
-  port: 8080
+  port: "8080"
 
