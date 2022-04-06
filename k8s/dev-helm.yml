@@ -10,3 +10,10 @@ configMap:
     CATALOGUE_PORT: "80"
     CATALOGUE_HOST: catalogue
     REDIS_HOST: redis-master
+resources:
+   limits:
+     cpu: 500m
+     memory: 512Mi
+   requests:
+     cpu: 500m
+     memory: 512Mi
