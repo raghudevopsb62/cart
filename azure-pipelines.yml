@@ -13,12 +13,12 @@ stages:
     steps:
     - script: |
         npm install
-        mv node_modules server.js $(Build.BinariesDirectory)
+        mv node_modules server.js $(Build.ArtifactStagingDirectory)
 
 - stage: Artifacts
   jobs:
   - job: PrepareArtifacts
     steps:
     - script: |
-        cd $(Build.BinariesDirectory)
+        cd $(Build.ArtifactStagingDirectory)
         zip -r cart.zip node_modules server.js
