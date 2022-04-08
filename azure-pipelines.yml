@@ -14,6 +14,8 @@ stages:
     - script: |
         npm install
         mv node_modules server.js $(Build.ArtifactStagingDirectory)
+        cd $(Build.ArtifactStagingDirectory)
+        ls -ltr
 
 - stage: Artifacts
   jobs:
@@ -21,4 +23,5 @@ stages:
     steps:
     - script: |
         cd $(Build.ArtifactStagingDirectory)
+        ls -ltr
         zip -r cart.zip node_modules server.js
