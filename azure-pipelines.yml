@@ -11,10 +11,14 @@ stages:
   jobs:
   - job: CIWork
     steps:
-    - script: "npm install"
+    - script: |
+        npm install
+        mv node_modules server.js $(Build.BinariesDirectory)
 
 - stage: Artifacts
   jobs:
   - job: PrepareArtifacts
     steps:
-    - script: "zip -r cart.zip node_modules server.js"
+    - script: |
+        cd $(Build.BinariesDirectory)
+        zip -r cart.zip node_modules server.js
