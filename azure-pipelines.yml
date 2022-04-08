@@ -11,12 +11,10 @@ stages:
   jobs:
   - job: CIWork
     steps:
-    - script: "echo Do CI work"
+    - script: "npm install"
 
-- stage: Test
+- stage: Artifacts
   jobs:
-  - job: TestWork
+  - job: PrepareArtifacts
     steps:
-    - script: "echo Do test work"
-
-
+    - script: "zip -r cart.zip node_modules server.js"
