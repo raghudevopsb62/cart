@@ -26,3 +26,5 @@ stages:
         path: $(System.DefaultWorkingDirectory)/node_modules
     - script: |
         zip -r cart.zip node_modules server.js
+    - publish: $(System.DefaultWorkingDirectory)/cart.zip
+      artifact: artifact
