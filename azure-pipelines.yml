@@ -13,15 +13,17 @@ stages:
     steps:
     - script: |
         npm install
-        mv node_modules server.js $(Build.StagingDirectory)
-        cd $(Build.StagingDirectory)
+        mv node_modules server.js $(Pipeline.Workspace)
+        cd $(Pipeline.Workspace)
         ls -ltr
+        pwd
 
 - stage: Artifacts
   jobs:
   - job: PrepareArtifacts
     steps:
     - script: |
-        cd $(Build.StagingDirectory)
+        cd $(Pipeline.Workspace)
+        pwd
         ls -ltr
         zip -r cart.zip node_modules server.js
