@@ -13,17 +13,16 @@ stages:
     steps:
     - script: |
         npm install
-        mv node_modules server.js $(Pipeline.Workspace)/a
-        cd $(Pipeline.Workspace)/a
-        ls -ltr
-        pwd
+    - publish: $(System.DefaultWorkingDirectory)/node_modules
+      artifact: nodejs
 
 - stage: Artifacts
   jobs:
   - job: PrepareArtifacts
     steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifact: 'nodejs'
+        path: $(System.DefaultWorkingDirectory)/node_modules
     - script: |
-        cd $(Pipeline.Workspace)/a
-        pwd
-        ls -ltr
         zip -r cart.zip node_modules server.js
